@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blood Donation App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #ff4d4d, #cc0000);
+            color: white;
+            text-align: center;
+        }
+
+        header {
+            padding: 40px 20px;
+        }
+
+        header h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .container {
+            background: white;
+            color: black;
+            width: 90%;
+            max-width: 400px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: darkred;
+            transform: scale(1.05);
+        }
+
+        .success {
+            margin-top: 15px;
+            color: green;
+            font-weight: bold;
+            display: none;
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🩸 Blood Donation</h1>
+    <p>Your small step can save lives</p>
+</header>
+
+<div class="container">
+    <h2>Register as Donor</h2>
+<form method="POST" action="blood.php">
+
+<input type="text" name="name" placeholder=" Name" required><br><br>
+
+<input type="text" name="blood_group" placeholder="Blood Group" required><br><br>
+
+<input type="text" name="city" placeholder="City" required><br><br>
+
+<input type="submit" name="submit" value="Submit">
+
+</form>
+    </div>
+    
+</div>
+
+<footer>
+    ❤️ Donate Blood • Save Lives
+</footer>
+
+<script>
+function saveDonor() {
+  let name = document.getElementById("name").value;
+    let blood = document.getElementById("blood").value;
+    let location = document.getElementById("location").value;
+
+    if(name === "" || blood === "" || location === "") {
+        alert("Please fill all fields");
+        return;
+    }
+
+    let donor = {
+        name: name,
+        blood: blood,
+        location: location
+    };
+
+    // Save in browser storage
+    let donors = JSON.parse(localStorage.getItem("donors")) || [];
+    donors.push(donor);
+    localStorage.setItem("donors", JSON.stringify(donors));
+
+    // Show success message
+    document.getElementById("successMsg").style.display = "block";
+
+    // Clear fields
+    document.getElementById("name").value = "";
+    document.getElementById("blood").value = "";
+    document.getElementById("location").value = "";
+
+    // Hide message after 3 sec
+    setTimeout(() => {
+        document.getElementById("successMsg").style.display = "none";
+    }, 3000);
+}
+</script>
+
+</body>
+</html>
